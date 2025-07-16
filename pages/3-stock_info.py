@@ -1,3 +1,10 @@
+# git init
+# git add .
+# git commit -m "first commit"
+# git branch -M main
+# git remote add origin https://github.com/YeonjiKim0316/fisa05-streamlit.git
+# git push -u origin main
+
 # https://hello-yeonji-stock.streamlit.app/
 
 # 표준 라이브러리
@@ -12,7 +19,6 @@ import plotly.graph_objects as go
 import matplotlib.pyplot as plt
 import matplotlib 
 #import koreanize_matplotlib
-
 
 # 캐싱: 인자가 바뀌지 않는 함수 실행 결과를 저장 후 재사용
 @st.cache_data
@@ -66,11 +72,6 @@ def sidebar_inputs() -> tuple[str, tuple[datetime.date, datetime.date], bool]:
     confirm_btn = st.sidebar.button('확인')
     return company_name, selected_dates, confirm_btn
 
-company_name, selected_dates, confirm_btn = sidebar_inputs()
-
-if confirm_btn:
-    
-
 # 우리가 필요로하는 코드조각들
 stock_code = get_stock_code_by_company(company_name)
 start_date = selected_dates[0].strftime(r"%Y-%m-%d")
@@ -87,6 +88,8 @@ fig = go.Figure(data=[go.Candlestick(x=price_df.index,
                         low=price_df['Low'],
                         close=price_df['Close'])])
 st.plotly_chart(fig)
+
 excel_data = BytesIO()
 price_df.to_excel(excel_data)
 st.download_button("엑셀 파일 다운로드", excel_data, file_name='stock_data.xlsx')
+
